@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Dashboard</h1>
+    </header>
+    <main>
+        <section id="productList">
+            {% for product in products %}
+                <div class="product">
+                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+                    <h2>{{ product.name }}</h2>
+                    <p>{{ product.description }}</p>
+                    <button onclick="addProduct('{{ product.id }}')">Add to Cart</button>
+                </div>
+            {% endfor %}
+        </section>
+        <section id="cartItems">
+            <h2>Your Cart</h2>
+            {% for item in cart %}
+                <div class="cart-item">
+                    <h3>{{ item.product.name }}</h3>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <button onclick="removeProduct('{{ item.product.id }}')">Remove</button>
+                </div>
+            {% endfor %}
+            <button id="checkoutButton">Checkout</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2022 Local Print on Demand</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
